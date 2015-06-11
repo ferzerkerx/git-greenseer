@@ -42,7 +42,7 @@ class DirStats:
                 existing_stat = ContributorStats(contribution.contributor_name, 0)
                 self.contributors_stats[contribution.contributor_name] = existing_stat
 
-            existing_stat.lines_contributed = existing_stat.lines_contributed + contribution.lines_contributed
+            existing_stat.contributed_lines = existing_stat.contributed_lines + contribution.lines_contributed
             self.total_dir_lines = self.total_dir_lines + contribution.lines_contributed
 
     def print_dir_stats(self):
