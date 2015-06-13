@@ -4,13 +4,12 @@ __author__ = 'fmontes'
 
 
 class DirStats:
-    contribution_list_per_file = {}
-    contributors_stats = {}
-    dir_name = ''
-    total_dir_lines = 0
-
     def __init__(self, dir_name):
         self.dir_name = dir_name
+        self.contribution_list_per_file = {}
+        self.contributors_stats = {}
+        self.dir_name = ''
+        self.total_dir_lines = 0
 
     def add_file_contributions(self, file_name, contributions):
         self.contribution_list_per_file[file_name] = contributions
@@ -20,8 +19,14 @@ class DirStats:
                 existing_stat = ContributorStats(contribution.contributor_name, 0)
                 self.contributors_stats[contribution.contributor_name] = existing_stat
 
-            existing_stat.contributed_lines = existing_stat.contributed_lines + contribution.lines_contributed
-            self.total_dir_lines = self.total_dir_lines + contribution.lines_contributed
+            # print 'To dir', self.dir_name, ' adding contributions for file: ', file_name, ' lines:',contribution.contributed_lines, ' from:', contribution.contributor_name, ' existing_stat.contributed_lines: ', existing_stat.contributed_lines
+            existing_stat.contributed_lines = existing_stat.contributed_lines + contribution.contributed_lines
+
+            # print self.total_dir_lines
+
+            self.total_dir_lines = self.total_dir_lines + contribution.contributed_lines
+            # print 'To dir', self.dir_name, ' adding contributions for file: ', file_name, ' lines:',contribution.contributed_lines, ' from:', contribution.contributor_name
+            # print self.total_dir_lines
 
     def print_dir_stats(self):
         for name in self.contributors_stats:

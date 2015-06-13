@@ -8,7 +8,7 @@ __author__ = 'fmontes'
 
 
 class PercentageContributorCalculator:
-    current_dir = '.';
+    current_dir = '.'
     def __init__(self, target_dir):
         self.current_dir = os.getcwd()
         os.chdir(target_dir)
@@ -86,7 +86,7 @@ class PercentageContributorCalculator:
 
         print 'Total Files: ', total_file_count
         for dir_name in sorted(dir_stat_list):
-            print dir_name
+            print '########',dir_name
             dir_stats = dir_stat_list[dir_name]
             dir_stats.print_dir_stats()
             # dir_stats.print_stats_for_files_in_dir()
