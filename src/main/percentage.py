@@ -65,18 +65,14 @@ class PercentageContributorCalculator:
 
             file_components = full_file_name.split(".", 1)
             if (len(file_components) != 2):
-                # print "Skipping file:" + full_file_name
                 continue
             extension = file_components[1]
             if (extension != "java"):
-                # print "Skipping file:" + full_file_name
                 continue
 
             total_file_count = total_file_count + 1
             dir = full_file_name[:full_file_name.rfind("/")]
-            # print "file:", full_file_name
             contributors = self.get_contributors_for_file(full_file_name)
-            # contributors = []
 
             dir_stats = dir_stat_list.get(dir)
             if (dir_stats == None):
@@ -94,11 +90,17 @@ class PercentageContributorCalculator:
         if should_print_by_category:
             for category in categories:
                 print '*******',category
+                category_stats = DirStats(category)
+                category_str = ''
                 for dir_name in sorted_dir_list:
                     dir_stats = dir_stat_list[dir_name]
                     if (dir_stats.contains_category(category)):
-                        print '########',dir_name
-                        dir_stats.print_dir_stats()
+                        category_stats.merge_dir_stats(dir_stats)
+                        category_str += '\n' + '########' + dir_name + '\n' + dir_stats.get_dir_stats()
+                if category_stats.total_dir_lines > 0:
+                    category_stats.print_dir_stats()
+                    print category_str
+
         else:
             for dir_name in sorted_dir_list:
                 print '########',dir_name

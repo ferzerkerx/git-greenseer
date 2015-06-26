@@ -11,7 +11,8 @@ def main():
     if (len(sys.argv) > 1):
         target_dir = sys.argv[1]
 
-    max = 100
+    # TODO Fer read this from sdin
+    max = None
 
     # TODO Fer read this from sdin
     categories = [
