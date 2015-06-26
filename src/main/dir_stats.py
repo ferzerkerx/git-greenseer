@@ -6,10 +6,14 @@ __author__ = 'fmontes'
 class DirStats:
     def __init__(self, dir_name):
         self.dir_name = dir_name
+        self.categories = dir_name.split("/")
         self.contribution_list_per_file = {}
         self.contributors_stats = {}
         self.dir_name = ''
         self.total_dir_lines = 0
+
+    def contains_category(self, category):
+        return category in self.categories
 
     def add_file_contributions(self, file_name, contributions):
         self.contribution_list_per_file[file_name] = contributions
@@ -29,8 +33,12 @@ class DirStats:
             # print self.total_dir_lines
 
     def print_dir_stats(self):
-        for name in self.contributors_stats:
-            contribution = self.contributors_stats[name]
+        sorted_contributions = sorted(self.contributors_stats.items(),
+                                      key=lambda contributor_tuple: contributor_tuple[1].contributed_lines,
+                                      reverse=True)
+
+        for name, contribution in sorted_contributions:
+            # contribution = self.contributors_stats[name]
             contribution.total_lines_to_consider = self.total_dir_lines
             print '%(contributor_name)s has %(percent)g %%' % {"contributor_name": name, "percent": contribution.average()}
 

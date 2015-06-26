@@ -45,14 +45,18 @@ class PercentageContributorCalculator:
         # print "Total lines in file:", lines_in_file
         return file_contributors
 
-    def print_contribution_percentage_by_commiter(self):
+    def print_contribution_percentage_by_commiter(self, categories=None, max=None):
+        if not categories:
+            categories = []
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",
                                                             shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
         lines = git_lines_per_committer_for_file.readlines()
         dir_stat_list = {}
 
-        # max = 5
+
         total_file_count = 0
+
+        should_print_by_category = len(categories) > 0
 
         for line in lines:
             full_file_name = line.strip().decode("unicode_escape", "ignore")
@@ -80,13 +84,24 @@ class PercentageContributorCalculator:
                 dir_stat_list[dir] = dir_stats
 
             dir_stats.add_file_contributions(full_file_name, contributors)
-            # max = max - 1
-            # if (max <= 0):
-            #     break
+
+            if max != None and total_file_count > max:
+                break
 
         print 'Total Files: ', total_file_count
-        for dir_name in sorted(dir_stat_list):
-            print '########',dir_name
-            dir_stats = dir_stat_list[dir_name]
-            dir_stats.print_dir_stats()
-            # dir_stats.print_stats_for_files_in_dir()
+        sorted_dir_list = sorted(dir_stat_list)
+
+        if should_print_by_category:
+            for category in categories:
+                print '*******',category
+                for dir_name in sorted_dir_list:
+                    dir_stats = dir_stat_list[dir_name]
+                    if (dir_stats.contains_category(category)):
+                        print '########',dir_name
+                        dir_stats.print_dir_stats()
+        else:
+            for dir_name in sorted_dir_list:
+                print '########',dir_name
+                dir_stats = dir_stat_list[dir_name]
+                dir_stats.print_dir_stats()
+                # dir_stats.print_stats_for_files_in_dir()
