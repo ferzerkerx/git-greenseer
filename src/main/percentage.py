@@ -80,7 +80,7 @@ class PercentageContributorCalculator:
             if (dir_stats == None):
                 dir_stats = DirStats(dir)
                 for category in dir_stats.categories:
-                    aliased_category = aliases[category]
+                    aliased_category = aliases.get(category, None)
                     if aliased_category:
                         dir_stats.add_category(aliased_category)
                 dir_stat_list[dir] = dir_stats

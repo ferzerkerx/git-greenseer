@@ -14,7 +14,19 @@ def main():
     # TODO Fer read this from sdin
     max = None
 
-    aliases = {'adt': 'encore'}
+    aliases = {
+        'adt': 'encore',
+        'adtcore': 'encore',
+        'adtcommon': 'encore',
+        'adm': 'admin',
+        'amadeus': 'gds',
+        'sabre': 'gds',
+        'compress': 'asset packaging',
+        'asset_packaging': 'asset packaging',
+        'webcf': 'ots',
+        'implementationresolver': 'stub framework'
+
+    }
 
     # TODO Fer read this from sdin
     categories = [
@@ -35,13 +47,11 @@ def main():
         'enrichment',
         'payment',
         'points',
-        'api',
         'model',
-        'remote',
+        'remoteservice',
         'repository',
-        'task',
+        'tasks',
         'report',
-        'admin',
         'encore',
         'ezmodify',
         'automation',
@@ -50,13 +60,17 @@ def main():
         'shopping',
         'mobile',
         'handlebars',
-        'interceptor',
+        'interceptors',
         'freemarker',
         'adm',
         'marketing',
         'gds',
         'validation',
-        'tracking']
+        'tracking',
+        'asset packaging',
+        'ots'
+        'stub framework'
+    ]
     percentage_contributor_calculator = PercentageContributorCalculator(target_dir)
     percentage_contributor_calculator.print_contribution_percentage_by_commiter(aliases, categories, max)
 
