@@ -58,3 +58,6 @@ class DirStats:
             for contribution in contributions:
                 print '%(contributor_name)s has %(percent)g %%' % {"contributor_name": contribution.contributor_name,
                                                                    "percent": contribution.average()}
+
+    def add_category(self, aliased_category):
+        self.categories.append(aliased_category)

@@ -45,14 +45,16 @@ class PercentageContributorCalculator:
         # print "Total lines in file:", lines_in_file
         return file_contributors
 
-    def print_contribution_percentage_by_commiter(self, categories=None, max=None):
+    def print_contribution_percentage_by_commiter(self, aliases=None, categories=None, max=None):
         if not categories:
             categories = []
+        if not aliases:
+            aliases = {}
+
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",
                                                             shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
         lines = git_lines_per_committer_for_file.readlines()
         dir_stat_list = {}
-
 
         total_file_count = 0
 
@@ -77,6 +79,10 @@ class PercentageContributorCalculator:
             dir_stats = dir_stat_list.get(dir)
             if (dir_stats == None):
                 dir_stats = DirStats(dir)
+                for category in dir_stats.categories:
+                    aliased_category = aliases[category]
+                    if aliased_category:
+                        dir_stats.add_category(aliased_category)
                 dir_stat_list[dir] = dir_stats
 
             dir_stats.add_file_contributions(full_file_name, contributors)

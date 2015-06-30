@@ -14,6 +14,8 @@ def main():
     # TODO Fer read this from sdin
     max = None
 
+    aliases = {'adt': 'encore'}
+
     # TODO Fer read this from sdin
     categories = [
         'search',
@@ -56,7 +58,7 @@ def main():
         'validation',
         'tracking']
     percentage_contributor_calculator = PercentageContributorCalculator(target_dir)
-    percentage_contributor_calculator.print_contribution_percentage_by_commiter(categories, max)
+    percentage_contributor_calculator.print_contribution_percentage_by_commiter(aliases, categories, max)
 
 
 if __name__ == "__main__":
