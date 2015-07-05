@@ -53,7 +53,7 @@ class PercentageContributorCalculator:
         if not categories:
             categories = []
 
-        sorted_dir_list = self.calculate_percentages(aliases, max_files)
+        dir_stat_list, sorted_dir_list = self.calculate_percentages(aliases, max_files)
         should_print_by_category = len(categories) > 0
 
         if should_print_by_category:
@@ -62,7 +62,7 @@ class PercentageContributorCalculator:
                 category_stats = DirStats(category)
                 category_str = ''
                 for dir_name in sorted_dir_list:
-                    dir_stats = sorted_dir_list[dir_name]
+                    dir_stats = dir_stat_list[dir_name]
                     if dir_stats.contains_category(category):
                         category_stats.merge_dir_stats(dir_stats)
                         category_str += '\n' + '########' + dir_name + '\n' + dir_stats.get_dir_stats()
@@ -73,7 +73,7 @@ class PercentageContributorCalculator:
         else:
             for dir_name in sorted_dir_list:
                 print '########', dir_name
-                dir_stats = sorted_dir_list[dir_name]
+                dir_stats = dir_stat_list[dir_name]
                 dir_stats.print_dir_stats()
                 # dir_stats.print_stats_for_files_in_dir()
 
@@ -115,4 +115,4 @@ class PercentageContributorCalculator:
                 break
         print 'Total Files: ', total_file_count
         sorted_dir_list = sorted(dir_stat_list)
-        return sorted_dir_list
+        return dir_stat_list, sorted_dir_list

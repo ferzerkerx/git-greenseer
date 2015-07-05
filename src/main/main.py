@@ -5,6 +5,7 @@ import sys
 print sys.path
 
 from percentage import PercentageContributorCalculator
+from category_percentage_html_report import render_category_html_string
 
 def main():
     target_dir = '.'
@@ -73,6 +74,8 @@ def main():
     ]
     percentage_contributor_calculator = PercentageContributorCalculator(target_dir)
     percentage_contributor_calculator.print_contribution_percentage_by_commiter(aliases, categories, max)
+    html = render_category_html_string(None )
+    print html
 
 
 if __name__ == "__main__":
