@@ -70,11 +70,13 @@ def main():
         'tracking',
         'asset packaging',
         'ots'
-        'stub framework'
+        'stub framework',
+        'ferzerkerx'
     ]
     percentage_contributor_calculator = PercentageContributorCalculator(target_dir)
-    percentage_contributor_calculator.print_contribution_percentage_by_commiter(aliases, categories, max)
-    html = render_category_html_string(None )
+    percentage_contributor_calculator.print_contribution_percentage_by_committer(aliases, categories, max)
+    html = render_category_html_string(None)
+    # open(filename, "w").write(render_to_string(template, context))
     print html
 
 

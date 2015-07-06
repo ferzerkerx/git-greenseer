@@ -4,12 +4,11 @@ __author__ = 'fmontes'
 
 
 class DirStats:
-    def __init__(self, dir_name):
+    def __init__(self, dir_name=''):
         self.dir_name = dir_name
         self.categories = dir_name.split("/")
         self.contribution_list_per_file = {}
         self.contributors_stats = {}
-        self.dir_name = ''
         self.total_dir_lines = 0
 
     def contains_category(self, category):
