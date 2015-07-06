@@ -60,29 +60,17 @@ class PercentageContributorCalculator:
                     dir_category_stat.merge_dir_stats(dir_stats)
         return dir_category_stats
 
-    def print_contribution_percentage_by_committer(self, aliases=None, categories=None, max_files=None):
+    def calculate_contribution_percentage_by_committer_using_categories(self, aliases=None, categories=None, max_files=None):
         if not aliases:
             aliases = {}
         if not categories:
             categories = []
-
         dir_stat_list, sorted_dir_list = self.calculate_percentages_for_git_repository(aliases, max_files)
-        should_print_by_category = len(categories) > 0
+        stats_by_category = self.calculate_stats_by_category(categories, sorted_dir_list, dir_stat_list)
+        return stats_by_category
 
-        if should_print_by_category:
-            stats_by_category = self.calculate_stats_by_category(categories, sorted_dir_list, dir_stat_list)
-            for category_stats in stats_by_category:
-                print '*******', category_stats.name
-                category_stats.print_dir_stats()
-                for dir_stats in category_stats.dir_stats:
-                    print '\n' + '########' + dir_stats.dir_name + '\n' + dir_stats.get_dir_stats()
-
-        else:
-            for dir_name in sorted_dir_list:
-                print '########', dir_name
-                dir_stats = dir_stat_list[dir_name]
-                dir_stats.print_dir_stats()
-                # dir_stats.print_stats_for_files_in_dir()
+    def calculate_contribution_percentage_by_committer(self, max_files=None):
+        return self.calculate_percentages_for_git_repository({}, max_files)
 
     def calculate_percentages_for_git_repository(self, aliases, max_files):
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",

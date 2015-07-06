@@ -6,6 +6,9 @@ print sys.path
 
 from percentage import PercentageContributorCalculator
 from category_percentage_html_report import render_category_html_string
+from category_percentage_text_report import print_contribution_percentage_by_committer_using_categories
+from category_percentage_text_report import print_contribution_percentage_by_committer
+
 
 def main():
     target_dir = '.'
@@ -74,7 +77,15 @@ def main():
         'ferzerkerx'
     ]
     percentage_contributor_calculator = PercentageContributorCalculator(target_dir)
-    percentage_contributor_calculator.print_contribution_percentage_by_committer(aliases, categories, max)
+
+    should_print_by_category = len(categories) > 0
+    if should_print_by_category:
+        stats_by_category = percentage_contributor_calculator.calculate_contribution_percentage_by_committer_using_categories(
+            aliases, categories, max)
+        print_contribution_percentage_by_committer_using_categories(stats_by_category)
+    else:
+        dir_stat_list, sorted_dir_list = percentage_contributor_calculator.calculate_contribution_percentage_by_committer(max)
+        print_contribution_percentage_by_committer(sorted_dir_list, dir_stat_list)
     html = render_category_html_string(None)
     # open(filename, "w").write(render_to_string(template, context))
     print html
