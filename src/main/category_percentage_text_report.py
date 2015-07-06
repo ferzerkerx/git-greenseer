@@ -29,7 +29,7 @@ def print_stats_for_files_in_dir(dir_stat):
     for file_name in dir_stat.contribution_list_per_file:
         contributions = dir_stat.contribution_list_per_file[file_name]
         print file_name
-        total_lines_to_consider = 0#TODO Fer find a better way to do this
+        total_lines_to_consider = 0 #TODO Fer find a better way to do this
         for contribution in contributions:
             total_lines_to_consider += contribution.contributed_lines
 
