@@ -1,7 +1,10 @@
-<h3>{{category_name}}</h3>
+<h3>{{category_stats.name}}</h3>
+{% for name,contribution in category_stats.sorted_contributions %}
+    {{name}} has {{contribution.average(category_stats.total_dir_lines)}} %
+{% endfor %}
 
 <span class="category_directories">
-    {% for dir_stat in category_dir_stats %}
+    {% for dir_stat in category_stats.dir_stats %}
         {% include directory_percentages_template %}
     {% endfor %}
 </span>

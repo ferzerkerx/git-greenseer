@@ -38,6 +38,7 @@ class DirStats:
     def add_category(self, aliased_category):
         self.categories.append(aliased_category)
 
+    @property
     def sorted_contributions(self):
      return sorted(self.contributors_stats.items(),
                   key=lambda contributor_tuple: contributor_tuple[1].contributed_lines,

@@ -1,5 +1,5 @@
 {{dir_stat.dir_name}}
 
 {% for name,contribution in dir_stat.sorted_contributions %}
-    {{name}} has
+    {{name}} has {{contribution.average(dir_stat.total_dir_lines)}} %
 {% endfor %}
