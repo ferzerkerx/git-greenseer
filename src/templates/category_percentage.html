@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{{category_name}}
-</body>
-</html>
+<h3>{{category_name}}</h3>
+
+<span class="category_directories">
+    {% for dir_stat in category_dir_stats %}
+        {% include directory_percentages_template %}
+    {% endfor %}
+</span>

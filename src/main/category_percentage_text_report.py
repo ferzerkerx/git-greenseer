@@ -17,11 +17,8 @@ def print_contribution_percentage_by_committer(sorted_dir_list, dir_stat_list):
 
 
 def get_dir_stats(dir_stat):
-    sorted_contributions = sorted(dir_stat.contributors_stats.items(),
-                                  key=lambda contributor_tuple: contributor_tuple[1].contributed_lines,
-                                  reverse=True)
     result_str = ''
-    for name, contribution in sorted_contributions:
+    for name, contribution in dir_stat.sorted_contributions:
         result_str += '%(contributor_name)s has %(percent)g %% \n' % {"contributor_name": name, "percent": contribution.average(dir_stat.total_dir_lines)}
     return result_str
 
