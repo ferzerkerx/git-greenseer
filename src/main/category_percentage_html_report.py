@@ -6,14 +6,16 @@ from jinja2 import Template
 
 
 def render_contribution_percentage_by_committer_using_categories(stats_by_category):
-    html = ''
-    t = get_template('category_percentage.html')
+    layout_template = get_template('layout.html')
+    category_percentage_template = get_template('category_percentage.html')
+    directory_percentages_template = get_template('directory_percentages.html')
+
+    category_html = ''
     for category_stats in stats_by_category:
-        directory_percentages_template = get_template('directory_percentages.html')
         context_data = {'category_stats': category_stats,
                         'directory_percentages_template': directory_percentages_template}
-        html += t.render(context_data)
-    return html
+        category_html += category_percentage_template.render(context_data)
+    return layout_template.render({'content': category_html})
 
 
 def get_template(template_name=None):

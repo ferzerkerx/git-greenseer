@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys
+import os
 
 print sys.path
 
@@ -11,6 +12,7 @@ from category_percentage_text_report import print_contribution_percentage_by_com
 
 
 def main():
+    current_path = os.getcwd()
     target_dir = '.'
     if (len(sys.argv) > 1):
         target_dir = sys.argv[1]
@@ -74,7 +76,8 @@ def main():
         'asset packaging',
         'ots'
         'stub framework',
-        'ferzerkerx'
+        'ferzerkerx',
+        'web'
     ]
     percentage_contributor_calculator = PercentageContributorCalculator(target_dir)
     #TODO Add reporting type
@@ -84,12 +87,17 @@ def main():
         stats_by_category = percentage_contributor_calculator.calculate_contribution_percentage_by_committer_using_categories(
             aliases, categories, max)
         html = render_contribution_percentage_by_committer_using_categories(stats_by_category)
-        print html
+
+        file_dir = os.path.join(current_path, 'out')
+        if not os.path.exists(file_dir):
+            os.makedirs(file_dir)
+        f = open(file_dir + '/index.html', "w")
+        f.write(html)
+        f.close()
     else:
         dir_stat_list, sorted_dir_list = percentage_contributor_calculator.calculate_contribution_percentage_by_committer(max)
         print_contribution_percentage_by_committer(sorted_dir_list, dir_stat_list)
 
-    # open(filename, "w").write(render_to_string(template, context))
 
 
 if __name__ == "__main__":
