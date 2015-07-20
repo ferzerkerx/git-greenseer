@@ -1,5 +1,19 @@
-{{dir_stat.dir_name}}
+<div class="panel panel-info">
+    <div class="panel-heading">{{dir_stat.dir_name}}</div>
+    <div class="panel-body">
+        <p></p>
+    </div>
 
-{% for name,contribution in dir_stat.sorted_contributions %}
-    {{name}} has {{contribution.average(dir_stat.total_dir_lines)}} %
-{% endfor %}
+    <table class="table dir_percentages">
+        <tr>
+            <th>Name</th>
+            <th>Average %</th>
+        </tr>
+        {% for name,contribution in dir_stat.sorted_contributions %}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{contribution.average(dir_stat.total_dir_lines)}} %</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>

@@ -1,10 +1,26 @@
-<h3>{{category_stats.name}}</h3>
-{% for name,contribution in category_stats.sorted_contributions %}
-    {{name}} has {{contribution.average(category_stats.total_dir_lines)}} %
-{% endfor %}
+<div class="panel panel-primary">
+    <div class="panel-heading">{{category_stats.name}}</div>
+    <div class="panel-body">
+        <p></p>
+    </div>
 
-<span class="category_directories">
-    {% for dir_stat in category_stats.dir_stats %}
-        {% include directory_percentages_template %}
-    {% endfor %}
-</span>
+    <table class="table dir_percentages">
+        <tr>
+            <th>Name</th>
+            <th>Average %</th>
+        </tr>
+        {% for name,contribution in category_stats.sorted_contributions %}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{contribution.average(category_stats.total_dir_lines)}} %</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <span class="category_directories">
+        {% for dir_stat in category_stats.dir_stats %}
+            {% include directory_percentages_template %}
+        {% endfor %}
+    </span>
+</div>
