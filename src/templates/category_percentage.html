@@ -1,10 +1,13 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">{{category_stats.name}}</div>
+    <div class="panel-heading">
+        {{category_stats.name}}
+        <a href="#" onclick="draw('{{category_stats.name}}')">Show graph</a>
+    </div>
     <div class="panel-body">
         <p></p>
     </div>
 
-    <table class="table dir_percentages">
+    <table class="table category_percentages {{category_stats.name}}">
         <tr>
             <th>Name</th>
             <th>Average %</th>
