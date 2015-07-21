@@ -4,11 +4,10 @@
     </div>
     <div class="panel-body">
         <canvas id="{{category_stats.name}}Canvas" class="barCanvas" width="400" height="400"></canvas>
-        <br/>
-        <a class="btn btn-link" href="#{{category_stats.name}}_details" role="button" data-toggle="collapse"
-           data-target="#{{category_stats.name}}_details">Toggle Details</a>
+        <br />
+        <a href="#" class="category_details_toggle">Toggle Category Details</a>
 
-        <div id="{{category_stats.name}}_details" class="collapse">
+        <div class="category_details">
             <table class="table category_percentages {{category_stats.name}}">
                 <tr>
                     <th>Name</th>
@@ -24,10 +23,13 @@
         </div>
 
 
-    <span class="category_directories">
-        {% for dir_stat in category_stats.dir_stats %}
+        <span class="category_directories">
+            {% if category_stats.dir_stats|length > 0 %}
+            <h3>Included directories:</h3>
+            {% for dir_stat in category_stats.dir_stats %}
             {% include directory_percentages_template %}
-        {% endfor %}
-    </span>
+            {% endfor %}
+            {% endif %}
+        </span>
     </div>
 </div>
