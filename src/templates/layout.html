@@ -44,7 +44,7 @@
             return;
         }
 
-        for (var i = 0; i < percentageTd.length && i < max; i++) {
+        for (var i = 0; i < percentageTd.length && i < (max * 2) ; i++) {
             var percentageData = percentageTd[i].innerText;
             if (i % 2 == 0) {
                 labels.push(percentageData);
@@ -82,7 +82,7 @@
             targetCanvas = bars[i];
             targetCanvasId = targetCanvas.id;
             targetTable = targetCanvasId.substring(0, targetCanvasId.length - canvasStrLength);
-            drawContributorsGraph(targetTable, targetCanvas, 5);
+            drawContributorsGraph(targetTable, targetCanvas, 10);
         }
     });
 </script>

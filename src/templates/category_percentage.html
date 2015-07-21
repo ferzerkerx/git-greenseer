@@ -1,12 +1,12 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">
+    <div id="{{category_stats.name}}" class="panel-heading">
         {{category_stats.name}}
     </div>
     <div class="panel-body">
         <canvas id="{{category_stats.name}}Canvas" class="barCanvas" width="400" height="400"></canvas>
         <br/>
-        <a class="btn btn-link" href="#" role="button" data-toggle="collapse"
-           data-target="#{{category_stats.name}}_details">Show Details</a>
+        <a class="btn btn-link" href="#{{category_stats.name}}_details" role="button" data-toggle="collapse"
+           data-target="#{{category_stats.name}}_details">Toggle Details</a>
 
         <div id="{{category_stats.name}}_details" class="collapse">
             <table class="table category_percentages {{category_stats.name}}">
