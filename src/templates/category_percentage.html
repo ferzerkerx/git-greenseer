@@ -3,23 +3,27 @@
         {{category_stats.name}}
     </div>
     <div class="panel-body">
-        <p></p>
-    </div>
 
-    <canvas id="{{category_stats.name}}Canvas" class="barCanvas" width="400" height="400"></canvas>
+        <canvas id="{{category_stats.name}}Canvas" class="barCanvas" width="400" height="400"></canvas>
 
-    <table class="table category_percentages {{category_stats.name}}">
-        <tr>
-            <th>Name</th>
-            <th>Average %</th>
-        </tr>
-        {% for name,contribution in category_stats.sorted_contributions %}
-        <tr>
-            <td>{{name}}</td>
-            <td>{{contribution.average(category_stats.total_dir_lines)}} %</td>
-        </tr>
-        {% endfor %}
-    </table>
+        <br/>
+        <a class="btn btn-link" href="#" role="button" data-toggle="collapse"
+           data-target="#{{category_stats.name}}_details">Show Details</a>
+
+        <div id="{{category_stats.name}}_details" class="collapse">
+            <table class="table category_percentages {{category_stats.name}}">
+                <tr>
+                    <th>Name</th>
+                    <th>Average %</th>
+                </tr>
+                {% for name,contribution in category_stats.sorted_contributions %}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{contribution.average(category_stats.total_dir_lines)}} %</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
 
 
     <span class="category_directories">
@@ -27,4 +31,5 @@
             {% include directory_percentages_template %}
         {% endfor %}
     </span>
+    </div>
 </div>
