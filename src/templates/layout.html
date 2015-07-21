@@ -10,23 +10,30 @@
 
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-9 container-content">
-                {{content}}
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 container-content">
+            {{content}}
         </div>
     </div>
+</div>
 
 <script type="text/javascript">
-    function draw(targetClass) {
-        // Get the context of the canvas element we want to select
-        var ctx = $("#myChart").get(0).getContext("2d");
+    function drawContributorsGraph(targetTableDataSource, targetCanvas, max) {
 
-        var percentageTd = $('.' + targetClass + ' td');
+        max = typeof max !== 'undefined' ?  max : 20;
+
+        // Get the context of the canvas element we want to select
+        var ctx = targetCanvas.getContext("2d");
+
+        var percentageTd = $('.' + targetTableDataSource + ' td');
         var labels = []
                 , percentages = [];
+
+        if (percentageTd.length == 0) {
+            targetCanvas.style.display = 'none';
+            return;
+        }
 
         for (var i = 0; i < percentageTd.length; i++) {
             var percentageData = percentageTd[i].innerText;
@@ -41,7 +48,7 @@
             labels: labels,
             datasets: [
                 {
-                    label: targetClass,
+                    label: targetTableDataSource,
                     fillColor: "rgba(220,220,220,0.5)",
                     strokeColor: "rgba(220,220,220,0.8)",
                     highlightFill: "rgba(220,220,220,0.75)",
@@ -52,6 +59,23 @@
         };
         new Chart(ctx).Bar(data);
     }
+
+
+    $(function () {
+        var bars = $('.barCanvas')
+                , i = 0
+                , targetCanvas = undefined
+                , targetCanvasId = ''
+                , canvasStrLength = 'Canvas'.length
+                , targetTable = '';
+
+        for (i = 0; i < bars.length; i++) {
+            targetCanvas = bars[i];
+            targetCanvasId = targetCanvas.id;
+            targetTable = targetCanvasId.substring(0, targetCanvasId.length - canvasStrLength);
+            drawContributorsGraph(targetTable, targetCanvas, 5);
+        }
+    });
 </script>
 </body>
 </html>

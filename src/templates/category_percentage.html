@@ -1,11 +1,12 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         {{category_stats.name}}
-        <a href="#" onclick="draw('{{category_stats.name}}')">Show graph</a>
     </div>
     <div class="panel-body">
         <p></p>
     </div>
+
+    <canvas id="{{category_stats.name}}Canvas" class="barCanvas" width="400" height="400"></canvas>
 
     <table class="table category_percentages {{category_stats.name}}">
         <tr>
