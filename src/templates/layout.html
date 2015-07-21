@@ -84,6 +84,14 @@
             targetTable = targetCanvasId.substring(0, targetCanvasId.length - canvasStrLength);
             drawContributorsGraph(targetTable, targetCanvas, 10);
         }
+
+        $('div.dir_percentages').hide();
+        $('a.dir_percentages_toggle').click(function(e) {
+            var parent = $(this).parent().parent();
+            parent.children('.dir_percentages').slideToggle('slow');
+            parent.toggleClass('active');
+            e.preventDefault();
+        });
     });
 </script>
 </body>
