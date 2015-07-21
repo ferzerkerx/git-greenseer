@@ -11,11 +11,13 @@ def render_contribution_percentage_by_committer_using_categories(stats_by_catego
     directory_percentages_template = get_template('directory_percentages.html')
 
     category_html = ''
+    navigation_links = {}
     for category_stats in stats_by_category:
+        navigation_links[category_stats.name] = '#' + category_stats.name
         context_data = {'category_stats': category_stats,
                         'directory_percentages_template': directory_percentages_template}
         category_html += category_percentage_template.render(context_data)
-    return layout_template.render({'content': category_html})
+    return layout_template.render({'content': category_html, 'navigation_links': navigation_links})
 
 
 def get_template(template_name=None):

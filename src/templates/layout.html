@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -13,6 +12,15 @@
 <body>
 <div class="container-fluid">
     <div class="row">
+        <div class="col-md-2">
+            <ul>
+                {% for link in navigation_links %}
+                    <li>
+                    <a href="{{navigation_links[link]}}">{{link}}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
         <div class="col-md-9 container-content">
             {{content}}
         </div>
