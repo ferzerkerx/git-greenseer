@@ -13,7 +13,8 @@
                 <table class="{{name}}-contributor-stat-details">
                     {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
                     <tr>
-                        <td>{{category}}</td>
+                        <td class="color-cell">&nbsp;</td>
+                        <td class="category">{{category}}</td>
                         <td>{{contribution_percentage}}</td>
                     </tr>
                     {% endfor %}
@@ -26,45 +27,6 @@
 {% block footer %}
 <script type="text/javascript">
 
-    function drawContributorStats(targetTableDataSource, targetCanvas, colors) {
-
-
-        var percentageTd = $('.' + targetTableDataSource + ' td');
-        var labels = []
-            , percentages = [];
-
-        if (percentageTd.length == 0) {
-            targetCanvas.style.display = 'none';
-            return;
-        }
-
-        for (var i = 0; i < percentageTd.length ; i++) {
-            var percentageData = percentageTd[i].innerText;
-            if (i % 2 == 0) {
-                labels.push(percentageData);
-            }
-            else {
-                percentages.push(parseInt(percentageData));
-            }
-        }
-
-        // Get the context of the canvas element we want to select
-        var ctx = targetCanvas.getContext("2d");
-
-        var data = [];
-        for (var j = 0;j < labels.length; j++) {
-            data.push(
-                        {
-                            value: percentages[j],
-                            color: colors[j],
-                            label: labels[j]
-                        }
-            );
-        }
-
-         new Chart(ctx).Pie(data);
-    }
-
     $(function () {
         var pies = $('.pieCanvas')
                 , i = 0
@@ -74,11 +36,18 @@
                 , targetTable = ''
                 , colors = [];
 
-        colors = [];
-        for (var j = 0; j < 50 ; j++) {
-            //http://www.paulirish.com/2009/random-hex-color-code-snippets/
-            var color = '#'+Math.floor(Math.random()*16777216).toString(16);
-            colors.push(color);
+        var categories = $('.category');
+
+        colors = {};
+        for (var i = 0; i < categories.length ; i++) {
+            var category = categories[i];
+            var color = colors[category.innerText];
+            if (color === undefined) {
+                //http://www.paulirish.com/2009/random-hex-color-code-snippets/
+                color = '#'+Math.floor(Math.random()*16777216).toString(16);
+                colors[category.innerText] = color;
+            }
+            $(category).prev()[0].style.backgroundColor = color;
         }
 
         for (i = 0; i < pies.length; i++) {
