@@ -1,4 +1,4 @@
-from contributor_stats import ContributorStats
+from contribution_stats import ContributionStats
 
 __author__ = 'fmontes'
 
@@ -19,7 +19,7 @@ class DirStats:
         for contribution in contributions:
             existing_stat = self.contributors_stats.get(contribution.contributor_name)
             if existing_stat is None:
-                existing_stat = ContributorStats(contribution.contributor_name, 0)
+                existing_stat = ContributionStats(contribution.contributor_name, 0)
                 self.contributors_stats[contribution.contributor_name] = existing_stat
 
             # print 'To dir', self.dir_name, ' adding contributions for file: ', file_name, ' lines:',contribution.contributed_lines, ' from:', contribution.contributor_name, ' existing_stat.contributed_lines: ', existing_stat.contributed_lines

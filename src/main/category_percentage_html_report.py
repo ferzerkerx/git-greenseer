@@ -3,6 +3,7 @@ __author__ = 'ferzerkerx'
 import os
 import collections
 
+from contributor_stats import ContributorStatsByCategory
 from jinja2 import Template
 
 
@@ -19,6 +20,15 @@ def render_contribution_percentage_by_committer_using_categories(stats_by_catego
                         'directory_percentages_template': directory_percentages_template}
         category_html += category_percentage_template.render(context_data)
     return layout_template.render({'content': category_html, 'navigation_links': navigation_links})
+
+def render_categroy_contribution_percentage_by_committer(stats_by_category):
+    contributor_stats_by_category = {}
+
+    contributor_percentages_template = get_template('contributor_percentages.html')
+    for category_stats in stats_by_category:
+        for name,contribution in category_stats.sorted_contributions:
+            if
+
 
 
 def get_template(template_name=None):

@@ -1,7 +1,7 @@
 import subprocess
 import os
 
-from contributor_stats import ContributorStats
+from contribution_stats import ContributionStats
 from category_stats import CategoryStats
 from dir_stats import DirStats
 
@@ -38,7 +38,7 @@ class PercentageContributorCalculator:
             line_count = int(line_components[0])
             contributor_name = line_components[1]
 
-            file_contributors.append(ContributorStats(contributor_name, line_count))
+            file_contributors.append(ContributionStats(contributor_name, line_count))
 
             lines_in_file += line_count
 

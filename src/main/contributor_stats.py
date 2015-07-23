@@ -1,11 +1,11 @@
 __author__ = 'fmontes'
 
 
-class ContributorStats:
+class ContributorStatsByCategory:
 
-    def __init__(self, contributor_name, line_count):
+    def __init__(self, contributor_name):
         self.contributor_name = contributor_name
-        self.contributed_lines = line_count
+        self.contribution_by_category = {}
 
-    def average(self, total_lines_to_consider=0):
-        return float(self.contributed_lines) / float(total_lines_to_consider) * 100
+    def add_contribution(self, category, contribution_percentage):
+        self.contribution_by_category[category] = contribution_percentage
