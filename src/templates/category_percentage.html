@@ -15,7 +15,7 @@
                 </tr>
                 {% for name,contribution in category_stats.sorted_contributions %}
                 <tr>
-                    <td>{{name}}</td>
+                    <td><a href="contributors_stats.html#{{name}}" target="_blank">{{name}}</a></td>
                     <td>{{contribution.average(category_stats.total_dir_lines)}} %</td>
                 </tr>
                 {% endfor %}
@@ -25,10 +25,10 @@
 
         <span class="category_directories">
             {% if category_stats.dir_stats|length > 0 %}
-            <h3>Included directories:</h3>
-            {% for dir_stat in category_stats.dir_stats %}
-            {% include directory_percentages_template %}
-            {% endfor %}
+                <h3>Included directories:</h3>
+                {% for dir_stat in category_stats.dir_stats %}
+                    {% include directory_percentages_template %}
+                {% endfor %}
             {% endif %}
         </span>
     </div>

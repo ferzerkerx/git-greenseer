@@ -1,7 +1,7 @@
 {% for name,contributor_stat in contributor_stats_by_category.iteritems() %}
-<div>
+<div id="{{name}}" class="contributor-stat">
     <h3>{{name}}</h3>
-    <table>
+    <table class="{{name}}-contributor-stat-details">
         {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
         <tr>
             <td>{{category}}</td>

@@ -11,7 +11,7 @@
             </tr>
             {% for name,contribution in dir_stat.sorted_contributions %}
                 <tr>
-                    <td>{{name}}</td>
+                    <td><a href="contributors_stats.html#{{name}}" target="_blank">{{name}}</a></td>
                     <td>{{contribution.average(dir_stat.total_dir_lines)}} %</td>
                 </tr>
             {% endfor %}
