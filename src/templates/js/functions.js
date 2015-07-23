@@ -49,7 +49,7 @@ function drawContributorStats(targetTableDataSource, targetCanvas, colors) {
         }
 
         var data = [];
-        for (var i = 0; i < percentageTd.length ; i+=3) {
+        for (var i = 0; i < percentageTd.length ; i+=4) {
             var categoryName = percentageTd[i + 1].innerText;
 
             data.push(

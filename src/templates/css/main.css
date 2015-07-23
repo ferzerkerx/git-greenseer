@@ -24,3 +24,8 @@ ul.nav {
 div.navigation>nav {
     height: 100%;
 }
+
+table[class$="-contributor-stat-details"] td {
+    padding-left: 5px;
+    padding-right: 5px;
+}

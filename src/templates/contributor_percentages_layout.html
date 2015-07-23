@@ -11,11 +11,12 @@
                 <canvas id="{{name}}Canvas" class="pieCanvas" width="400" height="400"></canvas>
                 <br />
                 <table class="{{name}}-contributor-stat-details">
-                    {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
+                    {% for category,line_contribution in contributor_stat.contribution_by_category.iteritems() %}
                     <tr>
                         <td class="color-cell">&nbsp;</td>
                         <td class="category"><a href="index.html#{{category}}" target="_blank">{{category}}</a></td>
-                        <td>{{contribution_percentage}}</td>
+                        <td>{{line_contribution}} Lines</td>
+                        <td>{{contributor_stat.percentage_by_category[category]}}% (Overall Contribution)</td>
                     </tr>
                     {% endfor %}
                 </table>
