@@ -44,3 +44,9 @@ class DirStats:
                   key=lambda contributor_tuple: contributor_tuple[1].contributed_lines,
                   reverse=True)
 
+    @property
+    def sorted_contributions_by_name(self):
+     return sorted(self.contributors_stats.items(),
+                  key=lambda contributor_tuple: contributor_tuple[1].contributor_name.lower(),
+                  reverse=False)
+

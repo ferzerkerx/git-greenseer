@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {{categories_content}}
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript">
+
+    $(function () {
+        var bars = $('.barCanvas')
+                , i = 0
+                , targetCanvas = undefined
+                , targetCanvasId = ''
+                , canvasStrLength = 'Canvas'.length
+                , targetTable = '';
+
+        for (i = 0; i < bars.length; i++) {
+            targetCanvas = bars[i];
+            targetCanvasId = targetCanvas.id;
+            targetTable = targetCanvasId.substring(0, targetCanvasId.length - canvasStrLength);
+            drawContributorsGraph(targetTable, targetCanvas, 10);
+        }
+
+        $('div.dir_percentages').hide();
+        $('a.dir_percentages_toggle').click(function(e) {
+            var parent = $(this).parent().parent();
+            parent.children('.dir_percentages').slideToggle('slow');
+            parent.toggleClass('active');
+            e.preventDefault();
+        });
+
+        $('div.category_details').hide();
+        $('a.category_details_toggle').click(function(e) {
+            var categoryDetails =  $(this).next('div.category_details');
+            categoryDetails.slideToggle('slow');
+            categoryDetails.toggleClass('active');
+            e.preventDefault();
+        });
+    });
+</script>
+{% endblock %}
