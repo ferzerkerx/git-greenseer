@@ -65,7 +65,11 @@ class PercentageContributorCalculator:
             aliases = {}
         if not categories:
             categories = []
+
+        print 'Calculating percentages...'
         dir_stat_list, sorted_dir_list = self.calculate_percentages_for_git_repository(aliases, max_files)
+
+        print 'Grouping by category...'
         stats_by_category = self.calculate_stats_by_category(categories, sorted_dir_list, dir_stat_list)
         return stats_by_category
 
@@ -73,6 +77,7 @@ class PercentageContributorCalculator:
         return self.calculate_percentages_for_git_repository({}, max_files)
 
     def calculate_percentages_for_git_repository(self, aliases, max_files):
+        print 'Listing files...'
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",
                                                             shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
         lines = git_lines_per_committer_for_file.readlines()
@@ -109,5 +114,6 @@ class PercentageContributorCalculator:
             if max_files is not None and total_file_count > max_files:
                 break
         print 'Total Files: ', total_file_count
+        print 'Sorting by dir...'
         sorted_dir_list = sorted(dir_stat_list)
         return dir_stat_list, sorted_dir_list

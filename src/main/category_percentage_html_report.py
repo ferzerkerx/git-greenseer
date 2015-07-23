@@ -1,6 +1,7 @@
 __author__ = 'ferzerkerx'
 
 import os
+import collections
 
 from jinja2 import Template
 
@@ -11,7 +12,7 @@ def render_contribution_percentage_by_committer_using_categories(stats_by_catego
     directory_percentages_template = get_template('directory_percentages.html')
 
     category_html = ''
-    navigation_links = {}
+    navigation_links = collections.OrderedDict()
     for category_stats in stats_by_category:
         navigation_links[category_stats.name] = '#' + category_stats.name
         context_data = {'category_stats': category_stats,

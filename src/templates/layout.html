@@ -9,16 +9,41 @@
     <script src="js/Chart.min.js"></script>
 
     <style type="text/css">
+
         .nav>li>a {
             padding: 0 0;
         }
+
+        div.navigation {
+            position: fixed;
+            height: 90%;
+        }
+        .main-content {
+            position: inherit;
+            padding-left:300px
+        }
+
+        ul.nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: scroll;
+            position: absolute;
+            width: 200px;
+            height: 90%;
+        }
+
+        div.navigation>nav {
+            height: 100%;
+        }
+
     </style>
 
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-2">
+        <div class="navigation col-md-2">
             <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
                 <h3>Categories</h3>
                 <ul class="nav bs-docs-sidenav">
@@ -30,7 +55,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="col-md-9 container-content">
+        <div class="main-content col-md-10 container-content">
             {{content}}
         </div>
     </div>
