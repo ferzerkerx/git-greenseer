@@ -1,0 +1,26 @@
+.nav>li>a {
+    padding: 0 0;
+}
+
+div.navigation {
+    position: fixed;
+    height: 90%;
+}
+.main-content {
+    position: inherit;
+    padding-left:300px
+}
+
+ul.nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: scroll;
+    position: absolute;
+    width: 200px;
+    height: 90%;
+}
+
+div.navigation>nav {
+    height: 100%;
+}
