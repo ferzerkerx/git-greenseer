@@ -14,7 +14,7 @@
                     {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
                     <tr>
                         <td class="color-cell">&nbsp;</td>
-                        <td class="category">{{category}}</td>
+                        <td class="category"><a href="index.html#{{category}}" target="_blank">{{category}}</a></td>
                         <td>{{contribution_percentage}}</td>
                     </tr>
                     {% endfor %}
