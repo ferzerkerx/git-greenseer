@@ -1,0 +1,13 @@
+{% for name,contributor_stat in contributor_stats_by_category.iteritems() %}
+<div>
+    <h3>{{name}}</h3>
+    <table>
+        {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
+        <tr>
+            <td>{{category}}</td>
+            <td>{{contribution_percentage}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endfor %}
