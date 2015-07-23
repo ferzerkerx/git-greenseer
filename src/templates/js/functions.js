@@ -36,4 +36,7 @@ function drawContributorsGraph(targetTableDataSource, targetCanvas, max) {
             ]
         };
         new Chart(ctx).Bar(data);
-    }
+}
+
+
+

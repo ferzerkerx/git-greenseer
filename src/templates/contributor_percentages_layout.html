@@ -2,36 +2,91 @@
 
 {% block content %}
     {% for name,contributor_stat in contributor_stats_by_category.iteritems() %}
-    <div id="{{name}}" class="contributor-stat">
-        <h3>{{name}}</h3>
-        <table class="{{name}}-contributor-stat-details">
-            {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
-            <tr>
-                <td>{{category}}</td>
-                <td>{{contribution_percentage}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+        <div class="panel panel-primary">
+            <div id="{{name}}" class="contributor-stat panel-heading">
+                {{name}}
+            </div>
+
+            <div class="panel-body">
+                <canvas id="{{name}}Canvas" class="pieCanvas" width="400" height="400"></canvas>
+                <br />
+                <table class="{{name}}-contributor-stat-details">
+                    {% for category,contribution_percentage in contributor_stat.contribution_by_category.iteritems() %}
+                    <tr>
+                        <td>{{category}}</td>
+                        <td>{{contribution_percentage}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
 
 {% block footer %}
 <script type="text/javascript">
 
+    function drawContributorStats(targetTableDataSource, targetCanvas, colors) {
+
+
+        var percentageTd = $('.' + targetTableDataSource + ' td');
+        var labels = []
+            , percentages = [];
+
+        if (percentageTd.length == 0) {
+            targetCanvas.style.display = 'none';
+            return;
+        }
+
+        for (var i = 0; i < percentageTd.length ; i++) {
+            var percentageData = percentageTd[i].innerText;
+            if (i % 2 == 0) {
+                labels.push(percentageData);
+            }
+            else {
+                percentages.push(parseInt(percentageData));
+            }
+        }
+
+        // Get the context of the canvas element we want to select
+        var ctx = targetCanvas.getContext("2d");
+
+        var data = [];
+        for (var j = 0;j < labels.length; j++) {
+            data.push(
+                        {
+                            value: percentages[j],
+                            color: colors[j],
+                            label: labels[j]
+                        }
+            );
+        }
+
+         new Chart(ctx).Pie(data);
+    }
+
     $(function () {
-        var bars = $('.barCanvas')
+        var pies = $('.pieCanvas')
                 , i = 0
                 , targetCanvas = undefined
                 , targetCanvasId = ''
                 , canvasStrLength = 'Canvas'.length
-                , targetTable = '';
+                , targetTable = ''
+                , colors = [];
 
-        for (i = 0; i < bars.length; i++) {
-            targetCanvas = bars[i];
+        colors = [];
+        for (var j = 0; j < 50 ; j++) {
+            //http://www.paulirish.com/2009/random-hex-color-code-snippets/
+            var color = '#'+Math.floor(Math.random()*16777216).toString(16);
+            colors.push(color);
+        }
+
+        for (i = 0; i < pies.length; i++) {
+            targetCanvas = pies[i];
             targetCanvasId = targetCanvas.id;
-            targetTable = targetCanvasId.substring(0, targetCanvasId.length - canvasStrLength);
-            drawContributorsGraph(targetTable, targetCanvas, 10);
+            targetTable = targetCanvasId.substring(0, targetCanvasId.length - canvasStrLength) + '-contributor-stat-details';
+
+            drawContributorStats(targetTable, targetCanvas, colors);
         }
 
     });
