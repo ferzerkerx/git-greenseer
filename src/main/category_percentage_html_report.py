@@ -27,8 +27,9 @@ def render_categroy_contribution_percentage_by_committer(stats_by_category):
     contributor_percentages_template = get_template('contributor_percentages.html')
     for category_stats in stats_by_category:
         for name,contribution in category_stats.sorted_contributions:
-            if
-
+            contributor_stat = contributor_percentages_template[name]
+            if contributor_stat == None:
+                contributor_stat = ContributorStatsByCategory(name)
 
 
 def get_template(template_name=None):
