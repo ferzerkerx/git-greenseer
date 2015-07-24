@@ -22,6 +22,7 @@ class PercentageContributorCalculator:
 
     @staticmethod
     def get_contributors_for_file(file_name):
+        print 'Getting contributors for file:' + file_name
         git_lines_per_committer_for_file = subprocess.Popen(
             "git blame HEAD --line-porcelain " + file_name + " | sed -n 's/^author //p' | sort | uniq -c | sort -rn",
             shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
