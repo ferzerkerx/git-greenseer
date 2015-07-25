@@ -45,8 +45,9 @@ def render_categroy_contribution_percentage_by_committer(stats_by_category):
                 navigation_links[name] = '#' + name
                 contributor_stat = ContributorStatsByCategory(name)
                 contributor_stats_by_category[name] = contributor_stat
+
             contributor_stat.add_contribution(category_stats.name,
-                                              category_stats.total_dir_lines,
+                                              contribution.contributed_lines,
                                               contribution.average(category_stats.total_dir_lines))
 
     return layout_template.render({'title': 'Contributor',

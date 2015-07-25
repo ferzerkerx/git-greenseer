@@ -61,23 +61,23 @@ class PercentageContributorCalculator:
                     dir_category_stat.merge_dir_stats(dir_stats)
         return dir_category_stats
 
-    def calculate_contribution_percentage_by_committer_using_categories(self, aliases=None, categories=None, max_files=None):
+    def calculate_contribution_percentage_by_committer_using_categories(self, aliases=None, categories=None, max_files=None, allowed_extensions=None):
         if not aliases:
             aliases = {}
         if not categories:
             categories = []
 
         print 'Calculating percentages...'
-        dir_stat_list, sorted_dir_list = self.calculate_percentages_for_git_repository(aliases, max_files)
+        dir_stat_list, sorted_dir_list = self.calculate_percentages_for_git_repository(aliases, max_files, allowed_extensions)
 
         print 'Grouping by category...'
         stats_by_category = self.calculate_stats_by_category(categories, sorted_dir_list, dir_stat_list)
         return stats_by_category
 
-    def calculate_contribution_percentage_by_committer(self, max_files=None):
-        return self.calculate_percentages_for_git_repository({}, max_files)
+    def calculate_contribution_percentage_by_committer(self, max_files=None, allowed_extensions=None):
+        return self.calculate_percentages_for_git_repository({}, max_files, allowed_extensions)
 
-    def calculate_percentages_for_git_repository(self, aliases, max_files):
+    def calculate_percentages_for_git_repository(self, aliases, max_files, allowed_extensions):
         print 'Listing files...'
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",
                                                             shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
@@ -94,7 +94,7 @@ class PercentageContributorCalculator:
             if len(file_components) != 2:
                 continue
             extension = file_components[1]
-            if extension != "java":
+            if extension not in allowed_extensions:
                 continue
 
             total_file_count += 1

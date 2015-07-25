@@ -19,7 +19,9 @@ def main():
         target_dir = sys.argv[1]
 
     # TODO Fer read this from sdin
-    max = 20
+    max = None
+
+    allowed_extenstions = ["java", "ftl", "xml", "xsd", "hbs", "js", "cfm"]
 
     aliases = {
         'adt': 'encore',
@@ -88,7 +90,7 @@ def main():
     should_print_by_category = len(categories) > 0
     if should_print_by_category:
         stats_by_category = percentage_contributor_calculator.calculate_contribution_percentage_by_committer_using_categories(
-            aliases, sorted_categories, max)
+            aliases, sorted_categories, max, allowed_extenstions)
         print 'Generating Contribution Percentage By Category Report'
         html = render_contribution_percentage_by_committer_using_categories(stats_by_category)
         write_file(current_path, html, 'index.html')
@@ -97,7 +99,7 @@ def main():
         html = render_categroy_contribution_percentage_by_committer(stats_by_category)
         write_file(current_path, html, 'contributors_stats.html')
     else:
-        dir_stat_list, sorted_dir_list = percentage_contributor_calculator.calculate_contribution_percentage_by_committer(max)
+        dir_stat_list, sorted_dir_list = percentage_contributor_calculator.calculate_contribution_percentage_by_committer(max, allowed_extenstions)
         print_contribution_percentage_by_committer(sorted_dir_list, dir_stat_list)
 
 
