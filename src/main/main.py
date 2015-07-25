@@ -77,7 +77,7 @@ def main():
         'validation',
         'tracking',
         'asset packaging',
-        'ots'
+        'ots',
         'stub framework',
         # 'ferzerkerx',
         # 'web'
