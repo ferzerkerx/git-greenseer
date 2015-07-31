@@ -36,4 +36,3 @@ Some of the entries show something like
 because of this:
 http://stackoverflow.com/questions/4638500/git-blame-showing-no-history
 SOLVED by adding HEAD to git blame
-----------
