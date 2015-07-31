@@ -74,8 +74,8 @@ class PercentageContributorCalculator:
         stats_by_category = self.calculate_stats_by_category(categories, sorted_dir_list, dir_stat_list)
         return stats_by_category
 
-    def calculate_contribution_percentage_by_committer(self, max_files=None, allowed_extensions=None):
-        return self.calculate_percentages_for_git_repository({}, max_files, allowed_extensions)
+    def calculate_contribution_percentage_by_committer(self, aliases, max_files=None, allowed_extensions=None):
+        return self.calculate_percentages_for_git_repository(aliases , max_files, allowed_extensions)
 
     def calculate_percentages_for_git_repository(self, aliases, max_files, allowed_extensions):
         print 'Listing files...'
