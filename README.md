@@ -10,15 +10,15 @@ Dependencies:
 - Bootstrap.js
 - Charts.js
 
-How to run:
+How to use it:
 -------------------
-Run tests with:
-cd git-greenseer
-python -m unittest discover -s src -p '*_test.py'
+- Modify setup.py and change settings
+- python src/main/main.py /my/git/repo/path
 
-Run like:
-python src/main/main.py /my/git/repo/path
-
+How to run tests:
+-------------------
+- cd git-greenseer
+- python -m unittest discover -s src -p '*_test.py'
 
 How does it work:
 ----------------------
