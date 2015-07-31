@@ -2,7 +2,10 @@ git-greenseer
 ------------------
 Generates html report for a given git repository. Report shows:
 - Contribution percentage by category. (shows a bar chart)
+![alt tag](https://raw.githubusercontent.com/ferzerkerx/git-greenseer/master/screenshots/category_view.png)
+
 - Contribution per developer for each category. (shows a pie chart)
+![alt tag](https://raw.githubusercontent.com/ferzerkerx/git-greenseer/master/screenshots/dev_vew.png)
 
 Dependencies:
 -------------------
@@ -36,3 +39,11 @@ Some of the entries show something like
 because of this:
 http://stackoverflow.com/questions/4638500/git-blame-showing-no-history
 SOLVED by adding HEAD to git blame
+
+Backlog:
+---------------
+- Write more tests
+- Add last date of commit per contributor per category
+- Generate report per file (see old text report https://github.com/ferzerkerx/git-greenseer/commit/7452cfc4faf7482451f6a3fe8340d394a3dd5c59  print_stats_for_files_in_dir)
+- Add cache
+- Add a way to compare between branches
