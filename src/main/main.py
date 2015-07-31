@@ -25,11 +25,11 @@ def main():
     if group_using_specific_categories:
         stats_by_category = \
             percentage_contributor_calculator.calculate_contribution_percentage_by_committer_using_categories(
-                category_aliases, sorted_categories, max_number_of_files, allowed_extenstions)
+                category_aliases, sorted_categories, max_number_of_files, allowed_extensions)
     else:
         dir_stat_list, sorted_dir_list = \
             percentage_contributor_calculator.calculate_contribution_percentage_by_committer(
-                category_aliases, max_number_of_files, allowed_extenstions)
+                category_aliases, max_number_of_files, allowed_extensions)
 
         all_categories = set()
         for dir_name in sorted_dir_list:
