@@ -23,9 +23,9 @@ class PercentageContributorCalculator:
     @staticmethod
     def get_contributors_for_file(file_name):
         print 'Getting contributors for file:' + file_name
-        git_lines_per_committer_for_file = subprocess.Popen(
-            "git blame HEAD --line-porcelain " + file_name + " | sed -n 's/^author //p' | sort | uniq -c | sort -rn",
-            shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
+        command = "git blame HEAD --line-porcelain " + file_name + " | sed -n 's/^author //p' | sort | uniq -c | sort -rn"
+        print command
+        git_lines_per_committer_for_file = subprocess.Popen(command, shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
         lines = git_lines_per_committer_for_file.readlines()
 
         lines_in_file = 0
@@ -37,7 +37,7 @@ class PercentageContributorCalculator:
 
             line_components = j.split()
             line_count = int(line_components[0])
-            contributor_name = line_components[1].translate(None, '(')
+            contributor_name = line_components[1].replace('(', '')
 
             file_contributors.append(ContributionStats(contributor_name, line_count))
 
