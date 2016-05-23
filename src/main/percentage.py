@@ -37,7 +37,7 @@ class PercentageContributorCalculator:
 
             line_components = j.split()
             line_count = int(line_components[0])
-            contributor_name = line_components[1]
+            contributor_name = line_components[1].translate(None, '(')
 
             file_contributors.append(ContributionStats(contributor_name, line_count))
 
