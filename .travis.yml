@@ -1,0 +1,23 @@
+language: python
+python:
+  - "2.7"
+
+addons:
+  sonarcloud:
+    organization: "ferzerkerx-github"
+    token:
+      secure: "zjVCFTTGFicviMa4r8Tb6m9gg8Y+NcoVYrSkqIRAESGfnQcl0jA5XItGTYv/G9U9nzf6kRIQ5lJPQYH7OnVMna7Zg894LUQIylNDkjKYfh7gJgUS1rTWn7OCM+kIUwJiEShguMsgd531QFk9RLwDWgiINZhRUuIyuTgmvK/Le6r5KFaTAsv6M1sq7UpvyQfCgVYvUZjVUCPmanvPwp1bq+SMcenJ+ocZKvhE41lP0T3PjHX9JP0Nf9VNjx5WF6TjuIBdvFeBsZTfHbbrP4hARr6cmMvdn+qgxSRgEb8ktwOrOW6M6CWLWwU90KifPmRUa0ElLE4a3dovoGs163GgSo6ARnlcksJJE/o0Z8wiVTfQPBHOqzgmZ53SzAN1k3F543bKzw60SKQeI1r7IRtF5BDzuY66J4liJ97Meb2pC0CAv00ZSMA6LLiHiq2xi1xFGawccpHp1rRUdY0NOfvl5Ybza8JOflyq/UIS4UDO0tibtK5dtGazsAlLrLSnlM+yaL0DNR47NbMoelu3Bz028e39MjmEzrZLif6wExuWjICu2PgmiRg7QlnJc7c6OJiqBFvujOvIErxM+DeTXlqhEJa283mdUUd9iR8sM2ao50pKZWdDNeHjFuvFaGZtw23N0/uxIeu2Aq9JGbzVLX6JfoTOwRcUvozz4LiThw5//7s="
+env:
+  secure: "tUKJ7qaaDOxxOnz45KlmvZx8S0N8F6c5SdSsjlsmlpufgMStgs5NCjHJ1eoOMv5gdRFHDVCAc7Jj/mvkMjswL/J5IkI0y0ULZMDAdn6wlaDWibnK35QeETkkJdVj43klt4WKtUWcxGsWoFIFfIpnA7wmMc53IgZVe9rbVVI0lTrC3zivq8pkIFHHuTkXLKCeTAulXzhRsCSyRWsw/O9k+D8ohWzTgqbmzWHuYxXWiQfxJ9vh7pkxKxIT3PHs1N/72y3H6kS0Xz1N87EUh4Ymn6YMFPmhVwDJ4e9Bvn6V78q5ovDwhfhc+KBrKQ26MLJiHZbRoOzpW5iE2kmwTli7hlsdybIIjfHj8EAezF0ztcYBBHZ2tkXVFTrtwYU6TqgHCcAvxHwXFfcdYwZfe23GqdndHA3DE3nLIqlJS3ZyMoztTCUgTePnmoT3wvths/bY+nzabWfgwrESCfv89xuNaDuh07cAuZ6DUAp7577yhhiUgcYVE3VRmHLFBSFcARFeBkNXPITDlVok7wR/iVfIcbfTLHL25ehCpCcP/hnk/cdrEWjQec0YF21645MLrNiAH/npOsKuG6N/Ph5pNd+J/UVYBxOazY6P1PtnStrJSHzkTbQzn5oh+lsD71x0+Vrch1Ab4PEVt5grPaKFvfMuqhvsFtJJRgQVYSpKFGIOUQA="
+
+install:
+  - "pip install -r requirements.txt"
+  - "npm install -g snyk"
+
+script:
+  - "python -m unittest discover -s src -p '*_test.py'"
+  - "sonar-scanner"
+  - "snyk test"
+
+after_success:
+  - snyk monitor

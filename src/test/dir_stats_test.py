@@ -2,8 +2,8 @@ __author__ = 'fmontes'
 
 import unittest
 
-from main.contributor_stats import ContributorStats
 from main.dir_stats import DirStats
+from main.contribution_stats import ContributionStats
 
 class DirStatsTest(unittest.TestCase):
 
@@ -14,8 +14,13 @@ class DirStatsTest(unittest.TestCase):
         dir_stats.add_file_contributions('some_file2', self.create_file_contributions())
         dir_stats.add_file_contributions('some_file3', self.create_file_contributions())
         dir_stats.add_file_contributions('some_file4', self.create_file_contributions())
-        dir_stats.print_dir_stats()
-        dir_stats.print_stats_for_files_in_dir()
+        
+        self.assertEqual(len(dir_stats.sorted_contributions), 3)
+        firstContribution = dir_stats.sorted_contributions[0]
+        name = firstContribution[0]
+        contributions = firstContribution[1]
+        self.assertEqual(name, 'foo_name3')
+        self.assertAlmostEqual(contributions.average(1000), 40, 3)
 
 
     def create_file_contributions(self):
@@ -28,7 +33,7 @@ class DirStatsTest(unittest.TestCase):
         return file_contributions
 
     def create_contribution(self, contributor_name, line_count=100, total_lines_to_consider=1050.0):
-        contributor_stats = ContributorStats(contributor_name, line_count)
+        contributor_stats = ContributionStats(contributor_name, line_count)
         contributor_stats.total_lines_to_consider = total_lines_to_consider
         return contributor_stats
 

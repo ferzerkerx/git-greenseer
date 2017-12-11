@@ -16,6 +16,7 @@ Dependencies:
 How to use it:
 -------------------
 - Modify setup.py and change settings
+- pip install -r requirements.txt
 - python src/main/main.py /my/git/repo/path
 
 How to run tests:
