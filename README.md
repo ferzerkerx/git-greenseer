@@ -1,4 +1,5 @@
 git-greenseer
+[![Build Status](https://travis-ci.org/ferzerkerx/git-greenseer.svg?branch=master)](https://travis-ci.org/ferzerkerx/git-greenseer)
 ------------------
 Generates html report for a given git repository. Report shows:
 - Contribution percentage by category. (shows a bar chart)
