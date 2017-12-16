@@ -3,7 +3,7 @@
 import sys
 import os
 
-print sys.path
+print(sys.path)
 
 from setup import *
 from percentage import PercentageContributorCalculator
@@ -41,11 +41,11 @@ def main():
                                                                                           sorted_dir_list,
                                                                                           dir_stat_list)
 
-    print 'Generating Contribution Percentage By Category Report'
+    print('Generating Contribution Percentage By Category Report')
     html = render_contribution_percentage_by_committer_using_categories(stats_by_category)
     write_file(current_path, html, 'index.html')
 
-    print 'Generating Contributor Percentage By Category Report'
+    print('Generating Contributor Percentage By Category Report')
     html = render_categroy_contribution_percentage_by_committer(stats_by_category)
     write_file(current_path, html, 'contributors_stats.html')
 
@@ -55,7 +55,7 @@ def write_file(current_path, html, file_name='output'):
     if not os.path.exists(file_dir):
         os.makedirs(file_dir)
     html_filename = file_dir + '/' + file_name
-    print 'Writing html report to file:' + html_filename
+    print('Writing html report to file:' + html_filename)
     f = open(html_filename, "w")
     f.write(html)
     f.close()

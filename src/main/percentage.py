@@ -14,17 +14,17 @@ class PercentageContributorCalculator:
     def __init__(self, target_dir):
         self.current_dir = os.getcwd()
         os.chdir(target_dir)
-        print 'Changed to:', target_dir
+        print('Changed to:', target_dir)
 
     def __del__(self):
         os.chdir(self.current_dir)
-        print 'Changed back to:', self.current_dir
+        print('Changed back to:', self.current_dir)
 
     @staticmethod
     def get_contributors_for_file(file_name):
-        print 'Getting contributors for file:' + file_name
+        print('Getting contributors for file:' + file_name)
         command = "git blame HEAD --line-porcelain " + file_name + " | sed -n 's/^author //p' | sort | uniq -c | sort -rn"
-        print command
+        print(command)
         git_lines_per_committer_for_file = subprocess.Popen(command, shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
         lines = git_lines_per_committer_for_file.readlines()
 
@@ -45,8 +45,6 @@ class PercentageContributorCalculator:
 
         for contributor in file_contributors:
             contributor.total_lines_to_consider = lines_in_file
-            # print '%(contributor_name)s has %(percent)g %%' %  {"contributor_name": contributor.contributor_name, "percent": (float(contributor.lines_contributed) /  float(lines_in_file)  * 100)}
-        # print "Total lines in file:", lines_in_file
         return file_contributors
 
     @staticmethod
@@ -67,10 +65,10 @@ class PercentageContributorCalculator:
         if not categories:
             categories = []
 
-        print 'Calculating percentages...'
+        print('Calculating percentages...')
         dir_stat_list, sorted_dir_list = self.calculate_percentages_for_git_repository(aliases, max_files, allowed_extensions)
 
-        print 'Grouping by category...'
+        print('Grouping by category...')
         stats_by_category = self.calculate_stats_by_category(categories, sorted_dir_list, dir_stat_list)
         return stats_by_category
 
@@ -78,7 +76,7 @@ class PercentageContributorCalculator:
         return self.calculate_percentages_for_git_repository(aliases , max_files, allowed_extensions)
 
     def calculate_percentages_for_git_repository(self, aliases, max_files, allowed_extensions):
-        print 'Listing files...'
+        print('Listing files...')
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",
                                                             shell=True, bufsize=1, stdout=subprocess.PIPE).stdout
         lines = git_lines_per_committer_for_file.readlines()
@@ -114,7 +112,7 @@ class PercentageContributorCalculator:
 
             if max_files is not None and total_file_count > max_files:
                 break
-        print 'Total Files: ', total_file_count
-        print 'Sorting by dir...'
+        print('Total Files: ', total_file_count)
+        print('Sorting by dir...')
         sorted_dir_list = sorted(dir_stat_list)
         return dir_stat_list, sorted_dir_list
