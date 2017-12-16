@@ -22,15 +22,9 @@ class DirStats:
                 existing_stat = ContributionStats(contribution.contributor_name, 0)
                 self.contributors_stats[contribution.contributor_name] = existing_stat
 
-            # print 'To dir', self.dir_name, ' adding contributions for file: ', file_name, ' lines:',contribution.contributed_lines, ' from:', contribution.contributor_name, ' existing_stat.contributed_lines: ', existing_stat.contributed_lines
             existing_stat.contributed_lines = existing_stat.contributed_lines + contribution.contributed_lines
-
-            # print self.total_dir_lines
-
             self.total_dir_lines = self.total_dir_lines + contribution.contributed_lines
-            # print 'To dir', self.dir_name, ' adding contributions for file: ', file_name, ' lines:',contribution.contributed_lines, ' from:', contribution.contributor_name
-            # print self.total_dir_lines
-
+            
     def merge_dir_stats(self, other_dir_stats):
         for file_name in other_dir_stats.contribution_list_per_file:
             self.add_file_contributions(file_name, other_dir_stats.contribution_list_per_file[file_name])

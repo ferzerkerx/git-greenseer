@@ -57,7 +57,3 @@ def render_categroy_contribution_percentage_by_committer(stats_by_category):
 
 def get_template(template_name=None):
     return env.get_template(template_name)
-    # template_path = get_templates_path()
-    # f = open(template_path + '/' + template_name, 'r')
-    # return Template(f.read())
-

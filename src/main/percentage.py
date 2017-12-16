@@ -21,6 +21,13 @@ class PercentageContributorCalculator:
         print('Changed back to:', self.current_dir)
 
     @staticmethod
+    def parse_file_name(line):
+        full_file_name = line.strip().decode("unicode_escape", "ignore")
+        full_file_name = full_file_name.encode("latin-1", "replace")
+        full_file_name = full_file_name.decode("utf-8", "replace")
+        return full_file_name
+
+    @staticmethod
     def get_contributors_for_file(file_name):
         print('Getting contributors for file:' + file_name)
         command = "git blame HEAD --line-porcelain " + file_name + " | sed -n 's/^author //p' | sort | uniq -c | sort -rn"
@@ -31,9 +38,7 @@ class PercentageContributorCalculator:
         lines_in_file = 0
         file_contributors = []
         for i in lines:
-            j = i.strip().decode("unicode_escape", "ignore")
-            j = j.encode("latin-1", "replace")
-            j = j.decode("utf-8", "replace")
+            j = PercentageContributorCalculator.parse_file_name(i)
 
             line_components = j.split()
             line_count = int(line_components[0])
@@ -75,6 +80,15 @@ class PercentageContributorCalculator:
     def calculate_contribution_percentage_by_committer(self, aliases, max_files=None, allowed_extensions=None):
         return self.calculate_percentages_for_git_repository(aliases , max_files, allowed_extensions)
 
+    def should_process_file(self, allowed_extensions, full_file_name):
+        file_components = full_file_name.split(".", 1)
+        if len(file_components) != 2:
+            return False
+        extension = file_components[1]
+        if extension not in allowed_extensions:
+            return False
+        return True
+
     def calculate_percentages_for_git_repository(self, aliases, max_files, allowed_extensions):
         print('Listing files...')
         git_lines_per_committer_for_file = subprocess.Popen("git ls-files master .",
@@ -84,15 +98,9 @@ class PercentageContributorCalculator:
         total_file_count = 0
 
         for line in lines:
-            full_file_name = line.strip().decode("unicode_escape", "ignore")
-            full_file_name = full_file_name.encode("latin-1", "replace")
-            full_file_name = full_file_name.decode("utf-8", "replace")
+            full_file_name = PercentageContributorCalculator.parse_file_name(line)
 
-            file_components = full_file_name.split(".", 1)
-            if len(file_components) != 2:
-                continue
-            extension = file_components[1]
-            if extension not in allowed_extensions:
+            if not self.should_process_file(allowed_extensions, full_file_name):
                 continue
 
             total_file_count += 1
@@ -101,11 +109,7 @@ class PercentageContributorCalculator:
 
             dir_stats = dir_stat_list.get(directory)
             if dir_stats is None:
-                dir_stats = DirStats(directory)
-                for category in dir_stats.categories:
-                    aliased_category = aliases.get(category, None)
-                    if aliased_category:
-                        dir_stats.add_category(aliased_category)
+                dir_stats = self.create_dir_stats(aliases, directory)
                 dir_stat_list[directory] = dir_stats
 
             dir_stats.add_file_contributions(full_file_name, contributors)
@@ -116,3 +120,12 @@ class PercentageContributorCalculator:
         print('Sorting by dir...')
         sorted_dir_list = sorted(dir_stat_list)
         return dir_stat_list, sorted_dir_list
+
+    @staticmethod
+    def create_dir_stats(aliases, directory):
+        dir_stats = DirStats(directory)
+        for category in dir_stats.categories:
+            aliased_category = aliases.get(category, None)
+            if aliased_category:
+                dir_stats.add_category(aliased_category)
+        return dir_stats
