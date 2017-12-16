@@ -15,7 +15,7 @@ install:
   - "npm install -g snyk"
 
 script:
-  - "python -m unittest discover -s src -p '*_test.py'"
+  - "pytest"
   - "sonar-scanner"
   - "snyk test"
 
