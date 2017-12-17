@@ -15,7 +15,7 @@ install:
   - "npm install -g snyk"
 
 script:
-  - "pytest"
+  - "pytest --cov-report xml"
   - "sonar-scanner"
   - "snyk test"
 
