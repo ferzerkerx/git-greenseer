@@ -18,7 +18,6 @@ script:
   - "pytest --cov-report xml --cov=src/main/ src/test/"
   - "coverage xml -i"
   - "sonar-scanner"
-  - "snyk test"
 
 after_success:
   - snyk monitor
