@@ -1,6 +1,8 @@
 git-greenseer
 [![Build Status](https://travis-ci.org/ferzerkerx/git-greenseer.svg?branch=master)](https://travis-ci.org/ferzerkerx/git-greenseer)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=git-greenseer&metric=alert_status)](https://sonarcloud.io/dashboard/index/git-greenseer)
+
+This repo is archived: use https://github.com/ferzerkerx/repo-stats as a replacement
 ------------------
 Generates html report for a given git repository. Report shows:
 - Contribution percentage by category. (shows a bar chart)
